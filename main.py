@@ -4,17 +4,26 @@ import cv2
 import pyautogui
 import pydirectinput
 
-# import utils
-
+########################
+# Comandos del Juego
+########################
 # UP - Levantar Guardia (Defenderse)
-# X - Gancho Derecho    (Golpe)
-# S - Gancho Izquierdo  (Golpe)
-# Z - Golpe al Higado   (Especial)
+# X  - Gancho Derecho   (Golpe)
+# S  - Gancho Izquierdo (Golpe)
+# Z  - Golpe al Higado  (Especial)
 
 # TODO: 
-# LEFT  - 
-# RIGHT - 
+# LEFT  - Esquive hacia la Derecha
+# RIGHT - Esquive hacia la Izquierda
 
+
+########################
+# Funciones
+########################
+
+########################
+# Variables Auxiliares
+########################
 button_switch = -1
 is_press = False
 
@@ -32,6 +41,7 @@ with mp_pose.Pose(
     min_tracking_confidence=0.5) as pose:
     while cap.isOpened():
         success, image = cap.read()
+
         if not success:
             print("Ignoring empty camera frame.")
             # If loading a video, use 'break' instead of 'continue'.
@@ -47,6 +57,36 @@ with mp_pose.Pose(
         landmark_drawing_spec=mp_drawing_styles.get_default_pose_landmarks_style())
 
         try:
+            points = [
+                result.pose_landmarks.landmark[0].x,
+                result.pose_landmarks.landmark[1].x,
+                result.pose_landmarks.landmark[2].x,
+                result.pose_landmarks.landmark[3].x,
+                result.pose_landmarks.landmark[4].x,
+                result.pose_landmarks.landmark[5].x,
+                result.pose_landmarks.landmark[6].x,
+                result.pose_landmarks.landmark[7].x,
+                result.pose_landmarks.landmark[8].x,
+                result.pose_landmarks.landmark[9].x,
+                result.pose_landmarks.landmark[10].x,
+                result.pose_landmarks.landmark[11].x,
+                result.pose_landmarks.landmark[12].x,
+                result.pose_landmarks.landmark[13].x,
+                result.pose_landmarks.landmark[14].x,
+                result.pose_landmarks.landmark[15].x,
+                result.pose_landmarks.landmark[16].x,
+                result.pose_landmarks.landmark[17].x,
+                result.pose_landmarks.landmark[18].x,
+                result.pose_landmarks.landmark[19].x,
+                result.pose_landmarks.landmark[20].x,
+                result.pose_landmarks.landmark[21].x,
+                result.pose_landmarks.landmark[22].x,
+                result.pose_landmarks.landmark[23].x,
+                result.pose_landmarks.landmark[24].x
+            ]
+
+        
+
             if(result.pose_landmarks.landmark[16].x < result.pose_landmarks.landmark[14].x and result.pose_landmarks.landmark[16].visibility>0.7):
                 if(is_press):
                     pass
@@ -55,6 +95,7 @@ with mp_pose.Pose(
                     pydirectinput.keyDown("x")
                     button_switch = 0
                     is_press = True
+
             elif(result.pose_landmarks.landmark[15].x > result.pose_landmarks.landmark[13].x and result.pose_landmarks.landmark[15].visibility>0.7):
                 if(is_press):
                     pass
@@ -63,6 +104,7 @@ with mp_pose.Pose(
                     pydirectinput.keyDown("s")
                     button_switch = 1
                     is_press = True
+
             elif(result.pose_landmarks.landmark[16].x > result.pose_landmarks.landmark[15].x 
                     and result.pose_landmarks.landmark[15].visibility>0.7
                     and result.pose_landmarks.landmark[15].visibility>0.7):
@@ -73,6 +115,7 @@ with mp_pose.Pose(
                     pydirectinput.keyDown("z")
                     button_switch = 2
                     is_press = True
+
             elif(result.pose_landmarks.landmark[15].y*width < result.pose_landmarks.landmark[2].y*width or 
                     result.pose_landmarks.landmark[16].y*width < result.pose_landmarks.landmark[5].y*width):
                 if(is_press):
@@ -81,6 +124,24 @@ with mp_pose.Pose(
                     print("Press UP")
                     pydirectinput.keyDown("up")
                     button_switch = 3
+                    is_press = True
+
+            elif(np.average(points)*image.shape[1] < (image.shape[1]/3)):
+                if(is_press):
+                    pass
+                else:
+                    print("Press RIGHT")
+                    pydirectinput.keyDown("right")
+                    button_switch = 4
+                    is_press = True
+
+            elif(np.average(points)*image.shape[1] > (image.shape[1]/3)*2):
+                if(is_press):
+                    pass
+                else:
+                    print("Press left")
+                    pydirectinput.keyDown("left")
+                    button_switch = 5
                     is_press = True
 
             else:
@@ -107,6 +168,18 @@ with mp_pose.Pose(
                     is_press = False
                     button_switch = -1
                     pydirectinput.keyUp("up")
+
+                elif(button_switch == 4):
+                    print("Des-Press RIGHT")
+                    is_press = False
+                    button_switch = -1
+                    pydirectinput.keyUp("right")
+
+                elif(button_switch == 5):
+                    print("Des-Press LEFT")
+                    is_press = False
+                    button_switch = -1
+                    pydirectinput.keyUp("left")
 
         except:
             continue
