@@ -8,9 +8,11 @@ import pydirectinput
 # Comandos del Juego
 ########################
 # UP - Levantar Guardia (Defenderse)
-# X  - Gancho Derecho   (Golpe)
-# S  - Gancho Izquierdo (Golpe)
-# Z  - Golpe al Higado  (Especial)
+
+
+# A  - Gancho Derecho   (Golpe)
+# Z  - Gancho Izquierdo (Golpe)
+# X  - Golpe al Higado  (Especial)
 
 # TODO: 
 # LEFT  - Esquive hacia la Derecha
@@ -91,8 +93,8 @@ with mp_pose.Pose(
                 if(is_press):
                     pass
                 else:
-                    print("Press X")
-                    pydirectinput.keyDown("x")
+                    print("Press Z")
+                    pydirectinput.keyDown("z")
                     button_switch = 0
                     is_press = True
 
@@ -100,8 +102,8 @@ with mp_pose.Pose(
                 if(is_press):
                     pass
                 else:
-                    print("Press S")
-                    pydirectinput.keyDown("s")
+                    print("Press A")
+                    pydirectinput.keyDown("a")
                     button_switch = 1
                     is_press = True
 
@@ -111,8 +113,8 @@ with mp_pose.Pose(
                 if(is_press):
                     pass
                 else:
-                    print("Press Z")
-                    pydirectinput.keyDown("z")
+                    print("Press X")
+                    pydirectinput.keyDown("x")
                     button_switch = 2
                     is_press = True
 
@@ -146,22 +148,22 @@ with mp_pose.Pose(
 
             else:
                 if(button_switch == 0):
-                    print("Des-Press X")
-                    is_press = False
-                    button_switch = -1
-                    pydirectinput.keyUp("x")
-
-                elif(button_switch == 1):
-                    print("Des-Press S")
-                    is_press = False
-                    button_switch = -1
-                    pydirectinput.keyUp("s")
-
-                elif(button_switch == 2):
                     print("Des-Press Z")
                     is_press = False
                     button_switch = -1
                     pydirectinput.keyUp("z")
+
+                elif(button_switch == 1):
+                    print("Des-Press A")
+                    is_press = False
+                    button_switch = -1
+                    pydirectinput.keyUp("a")
+
+                elif(button_switch == 2):
+                    print("Des-Press X")
+                    is_press = False
+                    button_switch = -1
+                    pydirectinput.keyUp("x")
 
                 elif(button_switch == 3):
                     print("Des-Press UP")
