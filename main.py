@@ -8,6 +8,8 @@ import pydirectinput
 # Comandos del Juego
 ########################
 # UP - Levantar Guardia (Defenderse)
+# LEFT  - Esquive hacia la Derecha
+# RIGHT - Esquive hacia la Izquierda
 
 
 # A  - Gancho Derecho   (Golpe)
@@ -15,8 +17,7 @@ import pydirectinput
 # X  - Golpe al Higado  (Especial)
 
 # TODO: 
-# LEFT  - Esquive hacia la Derecha
-# RIGHT - Esquive hacia la Izquierda
+
 
 
 ########################
